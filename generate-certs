@@ -104,3 +104,23 @@ echo "ssl_cert: |"
 cat $SSL_CERT | sed 's/^/  /'
 echo
 fi
+
+if [[ -n $K8S_SECRET_NAME ]]; then
+
+  if [[ -n $K8S_SECRET_COMBINE_CA ]]; then
+    [[ -z $SILENT ]] && echo "====> Adding CA to Cert file"
+    cat ${CA_CERT} >> ${SSL_CERT}
+  fi
+
+  [[ -z $SILENT ]] && echo "====> Creating Kubernetes secret: $K8S_SECRET_NAME"
+  kubectl create secret tls \
+    $K8S_SECRET_NAME \
+    --cert=${SSL_CERT} \
+    --key=${SSL_KEY}
+
+  if [[ -n $K8S_SECRET_LABELS ]]; then
+    kubectl label secret \
+      $K8S_SECRET_NAME \
+      $K8S_SECRET_LABELS
+  fi
+fi

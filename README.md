@@ -1,4 +1,4 @@
-OMGWTFSSL - Self Signed SSL Certificate Generator
+Self Signed SSL Certificate Generator for Kubernetes
 =================================================
 
 About
@@ -164,6 +164,7 @@ Advanced Usage
 
 Customize the certs using the following Environment Variables:
 
+* `SILENT` Surpress output, default `false`
 * `CA_KEY` CA Key file, default `ca-key.pem` __[1]__
 * `CA_CERT` CA Certificate file, default `ca.pem` __[1]__
 * `CA_SUBJECT` CA Subject, default `test-ca`
@@ -177,6 +178,9 @@ Customize the certs using the following Environment Variables:
 * `SSL_SUBJECT` SSL Subject default `example.com`
 * `SSL_DNS` comma seperate list of alternative hostnames, no default [2]
 * `SSL_IP` comma seperate list of alternative IPs, no default [2]
+* `K8S_SECRET_NAME` Add to Kubernetes with this name, default ``
+* `K8S_SECRET_LABELS` space-seperate list of labels for Kubernetes secret, default ``
+* `K8S_SECRET_COMBINE_CA` Append CA to end of Cert file, default `false`
 
 __[1] If file already exists will re-use.__
 __[2] If `SSL_DNS` or `SSL_IP` is set will add `SSL_SUBJECT` to alternative hostname list__
@@ -285,4 +289,4 @@ d52b82eb9ff3: Pushed
 6b030e7d76a6: Pushed
 8a648f689ddb: Pushed
 latest: digest: sha256:8a97202b0ad9b375ff478d84ed948ae7ddd298196fd3b341fc8391a0fe71345a size: 7617
-```    
+```
