@@ -119,8 +119,10 @@ if [[ -n $K8S_SECRET_NAME ]]; then
     --key=${SSL_KEY}
 
   if [[ -n $K8S_SECRET_LABELS ]]; then
+    [ -z $SILENT ]] && echo "====> Labeling Kubernetes secret"
     kubectl label secret \
       $K8S_SECRET_NAME \
       $K8S_SECRET_LABELS
+    sleep 1000
   fi
 fi
