@@ -113,6 +113,7 @@ if [[ -n $K8S_SECRET_NAME ]]; then
   fi
 
   [[ -z $SILENT ]] && echo "====> Creating Kubernetes secret: $K8S_SECRET_NAME"
+  kubectl delete secret $K8S_SECRET_NAME --ignore-not-found
   kubectl create secret tls \
     $K8S_SECRET_NAME \
     --cert=${SSL_CERT} \
@@ -120,9 +121,9 @@ if [[ -n $K8S_SECRET_NAME ]]; then
 
   if [[ -n $K8S_SECRET_LABELS ]]; then
     [ -z $SILENT ]] && echo "====> Labeling Kubernetes secret"
+    sleep 5
     kubectl label secret \
       $K8S_SECRET_NAME \
       $K8S_SECRET_LABELS
-    sleep 1000
   fi
 fi
