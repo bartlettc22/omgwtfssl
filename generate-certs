@@ -125,5 +125,6 @@ if [[ -n $K8S_SECRET_NAME ]]; then
     kubectl label secret \
       $K8S_SECRET_NAME \
       $K8S_SECRET_LABELS
+    sleep 1000
   fi
 fi
