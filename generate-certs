@@ -114,10 +114,19 @@ if [[ -n $K8S_SECRET_NAME ]]; then
 
   [[ -z $SILENT ]] && echo "====> Creating Kubernetes secret: $K8S_SECRET_NAME"
   kubectl delete secret $K8S_SECRET_NAME --ignore-not-found
-  kubectl create secret tls \
+
+  if [[ -n $K8S_SECRET_SEPARATE_CA ]]; then
+    kubectl create secret generic \
+    $K8S_SECRET_NAME \
+    --from-literal="tls.crt=${SSL_CERT}" \
+    --from-literal="tls.key=${SSL_KEY}" \
+    --from-literal="ca.crt=${CA_CERT}"
+  else
+    kubectl create secret tls \
     $K8S_SECRET_NAME \
     --cert=${SSL_CERT} \
     --key=${SSL_KEY}
+  fi
 
   if [[ -n $K8S_SECRET_LABELS ]]; then
     [[ -z $SILENT ]] && echo "====> Labeling Kubernetes secret"
