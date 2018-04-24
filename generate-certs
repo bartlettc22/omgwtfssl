@@ -118,9 +118,9 @@ if [[ -n $K8S_SECRET_NAME ]]; then
   if [[ -n $K8S_SECRET_SEPARATE_CA ]]; then
     kubectl create secret generic \
     $K8S_SECRET_NAME \
-    --from-literal="tls.crt=${SSL_CERT}" \
-    --from-literal="tls.key=${SSL_KEY}" \
-    --from-literal="ca.crt=${CA_CERT}"
+    --from-file="tls.crt=${SSL_CERT}" \
+    --from-file="tls.key=${SSL_KEY}" \
+    --from-file="ca.crt=${CA_CERT}"
   else
     kubectl create secret tls \
     $K8S_SECRET_NAME \
