@@ -181,6 +181,7 @@ Customize the certs using the following Environment Variables:
 * `K8S_SECRET_NAME` Add to Kubernetes with this name, default ``
 * `K8S_SECRET_LABELS` space-seperate list of labels for Kubernetes secret, default ``
 * `K8S_SECRET_COMBINE_CA` Append CA to end of Cert file, default `false`
+* `K8S_SECRET_SEPARATE_CA` Create a separate secret for the CA cert, default `false`
 
 __[1] If file already exists will re-use.__
 __[2] If `SSL_DNS` or `SSL_IP` is set will add `SSL_SUBJECT` to alternative hostname list__
